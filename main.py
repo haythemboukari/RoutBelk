@@ -9,7 +9,7 @@ from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
-
+from plyer import permission
 from kivy.uix.image import Image
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
@@ -69,6 +69,12 @@ class MenuScreen(Screen):
         filter_name = instance.text.lower().replace(" vision", "")
         app.set_filter(filter_name)
         app.root.current = "camera"
+
+    def request_permissions(self):
+        if not permission.check_permission('CAMERA'):
+            permission.request_permission('CAMERA')
+        if not permission.check_permission('INTERNET'):
+            permission.request_permission('INTERNET')
 
 
 class CameraScreen(Screen):
